@@ -64,3 +64,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 note:  php artisan make:command GenerateCrud --command=make:crud
 php artisan generate:crud employees
 php artisan generate:crud employees --force# HR
+php artisan generate:crud districts  
