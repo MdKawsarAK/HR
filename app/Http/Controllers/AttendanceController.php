@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Attendance;
+use Illuminate\Http\Request;
+use App\Models\Person;
+use App\Models\AttendanceMethod;
+
+
+class AttendanceController extends Controller
+{
+    public function index()
+    {
+        $attendances = Attendance::latest()->paginate(10);
+        return view('pages.attendances.index', compact('attendances'));
+    }
+
+    public function create()
+    {
+        $people = \App\Models\Person::all();
+        $attendanceMethods = \App\Models\AttendanceMethod::all();
+
+        return view('pages.attendances.create', [
+            'mode' => 'create',
+            'attendance' => new Attendance(),
+            'people' => $people,
+            'attendanceMethods' => $attendanceMethods,
+
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('uploads', 'public');
+        }
+        Attendance::create($data);
+        return redirect()->route('attendances.index')->with('success', 'Successfully created!');
+    }
+
+    public function show(Attendance $attendance)
+    {
+        return view('pages.attendances.view', compact('attendance'));
+    }
+
+    public function edit(Attendance $attendance)
+    {
+        $people = \App\Models\Person::all();
+        $attendanceMethods = \App\Models\AttendanceMethod::all();
+
+        return view('pages.attendances.edit', [
+            'mode' => 'edit',
+            'attendance' => $attendance,
+            'people' => $people,
+            'attendanceMethods' => $attendanceMethods,
+
+        ]);
+    }
+
+    public function update(Request $request, Attendance $attendance)
+    {
+        $data = $request->all();
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('uploads', 'public');
+        }
+        $attendance->update($data);
+        return redirect()->route('attendances.index')->with('success', 'Successfully updated!');
+    }
+
+    public function destroy(Attendance $attendance)
+    {
+        $attendance->delete();
+        return redirect()->route('attendances.index')->with('success', 'Successfully deleted!');
+    }
+}

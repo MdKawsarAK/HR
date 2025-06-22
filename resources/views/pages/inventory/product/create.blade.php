@@ -1,6 +1,6 @@
 @extends("layouts.master")
 
-@section("mpage")
+@section("page")
 <?php
 use App\Models\Inventory\Product;
 $products=Product::all();

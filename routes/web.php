@@ -27,3 +27,5 @@ Route::resource('hotels', App\Http\Controllers\HotelController::class);
 Route::resource('districts', App\Http\Controllers\DistrictController::class);
 Route::resource('districts', App\Http\Controllers\DistrictController::class);
 Route::resource('employees', App\Http\Controllers\EmployeeController::class);
+Route::resource('attendances', App\Http\Controllers\AttendanceController::class);
+Route::resource('attendances', App\Http\Controllers\AttendanceController::class);

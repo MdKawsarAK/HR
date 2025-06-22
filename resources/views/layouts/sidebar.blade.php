@@ -44,15 +44,8 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="./index.html" class="nav-link active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Dashboard v1</p>
-              </a>
-            </li>
           </ul>
         </li>
-
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-copy"></i>
@@ -90,15 +83,15 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pages/tables/data.html" class="nav-link">
+            <a class="nav-link" href="{{url('employees/create')}}">
               <i class="far fa-circle nav-icon"></i>
-              <p>DataTables</p>
+              <p>Employees Create</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/tables/jsgrid.html" class="nav-link">
+            <a class="nav-link" href="{{url('employees')}}">
               <i class="far fa-circle nav-icon"></i>
-              <p>jsGrid</p>
+              <p>Employee Manager</p>
             </a>
           </li>
         </ul>
