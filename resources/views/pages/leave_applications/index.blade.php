@@ -5,9 +5,9 @@
     <div class="card bg-primary mb-3 p-4">
         <div class="row">
             <div class="col-12 d-flex justify-content-between align-item-center ">
-                <h3 class=" card-title text-white d-flex align-items-center  m-0">Employee List</h3>
-                <a href="{{ route('employees.create') }}" class="btn btn-light btn-sm" title="Create New Product">
-                    <i class="fa fa-plus mr-1"></i> Create New Employee
+                <h3 class=" card-title text-white d-flex align-items-center  m-0">LeaveApplication List</h3>
+                <a href="{{ route('leave_applications.create') }}" class="btn btn-light btn-sm" title="Create New Product">
+                    <i class="fa fa-plus mr-1"></i> Create New LeaveApplication
                 </a>
             </div>
         </div>
@@ -60,13 +60,13 @@
         <!-- Table -->
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
-                <thead class="thead-dark"><tr><th>Id</th><th>First name</th><th>Last name</th><th>Category id</th><th>Hire date</th><th>Photo</th><th>Email</th><th>Status</th><th>Salary</th><th>Created at</th><th>Updated at</th><th>Phone</th><th>Nid</th><th>Gender</th><th>Address</th><th>Dob</th><th>Blood id</th><th>Actions</th></tr></thead>
+                <thead class="thead-dark"><tr><th>Id</th><th>Created at</th><th>Person id</th><th>Reason id</th><th>Remark</th><th>From date</th><th>To date</th><th>Status id</th><th>Category id</th><th>Days</th><th>Actions</th></tr></thead>
                 <tbody>
-                @foreach ($employees as $item)
-                    <tr><td>{{ $item->id }}</td><td>{{ $item->first_name }}</td><td>{{ $item->last_name }}</td><td>{{ optional($item->category)->name ?? $item->category_id }}</td><td>{{ $item->hire_date }}</td><td>@if($item->photo)<img src="{{ asset('storage/' . $item->photo) }}" width="50">@endif</td><td>{{ $item->email }}</td><td>{{ $item->status }}</td><td>{{ $item->salary }}</td><td>{{ $item->created_at }}</td><td>{{ $item->updated_at }}</td><td>{{ $item->phone }}</td><td>{{ $item->nid }}</td><td>{{ $item->gender }}</td><td>{{ $item->address }}</td><td>{{ $item->dob }}</td><td>{{ optional($item->blood)->name ?? $item->blood_id }}</td><td>
-    <a href="{{ route('employees.show', $item->id) }}" class="btn btn-sm btn-info">View</a>
-    <a href="{{ route('employees.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
-    <form action="{{ route('employees.destroy', $item->id) }}" method="POST" style="display:inline;">
+                @foreach ($leave_applications as $item)
+                    <tr><td>{{ $item->id }}</td><td>{{ $item->created_at }}</td><td>{{ optional($item->person)->name ?? $item->person_id }}</td><td>{{ optional($item->reason)->name ?? $item->reason_id }}</td><td>{{ $item->remark }}</td><td>{{ $item->from_date }}</td><td>{{ $item->to_date }}</td><td>{{ optional($item->status)->name ?? $item->status_id }}</td><td>{{ optional($item->category)->name ?? $item->category_id }}</td><td>{{ $item->days }}</td><td>
+    <a href="{{ route('leave_applications.show', $item->id) }}" class="btn btn-sm btn-info">View</a>
+    <a href="{{ route('leave_applications.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
+    <form action="{{ route('leave_applications.destroy', $item->id) }}" method="POST" style="display:inline;">
         @csrf
         @method('DELETE')
         <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>

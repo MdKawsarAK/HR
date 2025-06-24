@@ -4,11 +4,11 @@
 @endif
 
 <div class="mb-2">
-    <label>Person id</label>
-    <select name="person_id" class="form-select">
-        <option value="">Select Person id</option>
-        @foreach ($people as $option)
-            <option value="{{ $option->id }}" {{ old('person_id', $attendance->person_id ?? '') == $option->id ? 'selected' : '' }}>{{ $option->name ?? $option->id }}</option>
+    <label>Employees id</label>
+    <select name="employees_id" class="form-select">
+        <option value="">Select Employees id</option>
+        @foreach ($employees as $option)
+            <option value="{{ $option->id }}" {{ old('employees_id', $attendance->employees_id ?? '') == $option->id ? 'selected' : '' }}>{{ $option->name ?? $option->id }}</option>
         @endforeach
     </select>
 </div>

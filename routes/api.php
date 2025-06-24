@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Inventory\ProductController;
 use App\Http\Controllers\Api\Inventory\ProductCategoryController;
+use App\Http\Controllers\Api\HR\EmployeeController;
 
 
 Route::get('/user', function (Request $request) {
@@ -18,4 +19,8 @@ Route::apiResources([
 
 Route::apiResources([
     'productcategory'=>ProductCategoryController::class
+]);
+
+Route::apiResources([
+    'employees'=>employeeController::class
 ]);

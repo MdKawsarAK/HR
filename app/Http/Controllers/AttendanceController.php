@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use Illuminate\Http\Request;
-use App\Models\Person;
+use App\Models\Employee;
 use App\Models\AttendanceMethod;
 
 
@@ -18,13 +18,13 @@ class AttendanceController extends Controller
 
     public function create()
     {
-        $people = \App\Models\Person::all();
+        $employees = \App\Models\Employee::all();
         $attendanceMethods = \App\Models\AttendanceMethod::all();
 
         return view('pages.attendances.create', [
             'mode' => 'create',
             'attendance' => new Attendance(),
-            'people' => $people,
+            'employees' => $employees,
             'attendanceMethods' => $attendanceMethods,
 
         ]);
@@ -47,13 +47,13 @@ class AttendanceController extends Controller
 
     public function edit(Attendance $attendance)
     {
-        $people = \App\Models\Person::all();
+        $employees = \App\Models\Employee::all();
         $attendanceMethods = \App\Models\AttendanceMethod::all();
 
         return view('pages.attendances.edit', [
             'mode' => 'edit',
             'attendance' => $attendance,
-            'people' => $people,
+            'employees' => $employees,
             'attendanceMethods' => $attendanceMethods,
 
         ]);

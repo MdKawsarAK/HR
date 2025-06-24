@@ -61,7 +61,7 @@
 </div>
 <div class="mb-2">
     <label>Dob</label>
-    <input type="date" name="dob" value="{{ old('dob', $employee->dob ?? '') }}" class="form-control">
+    <input type="text" name="dob" value="{{ old('dob', $employee->dob ?? '') }}" class="form-control">
 </div>
 <div class="mb-2">
     <label>Blood id</label>

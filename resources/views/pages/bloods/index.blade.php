@@ -5,9 +5,9 @@
     <div class="card bg-primary mb-3 p-4">
         <div class="row">
             <div class="col-12 d-flex justify-content-between align-item-center ">
-                <h3 class=" card-title text-white d-flex align-items-center  m-0">HrAttendance List</h3>
-                <a href="{{ route('hr_attendances.create') }}" class="btn btn-light btn-sm" title="Create New Product">
-                    <i class="fa fa-plus mr-1"></i> Create New HrAttendance
+                <h3 class=" card-title text-white d-flex align-items-center  m-0">Blood List</h3>
+                <a href="{{ route('bloods.create') }}" class="btn btn-light btn-sm" title="Create New Product">
+                    <i class="fa fa-plus mr-1"></i> Create New Blood
                 </a>
             </div>
         </div>
@@ -60,13 +60,13 @@
         <!-- Table -->
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
-                <thead class="thead-dark"><tr><th>Id</th><th>Person id</th><th>Att datetime</th><th>Method id</th><th>Actions</th></tr></thead>
+                <thead class="thead-dark"><tr><th>Id</th><th>Name</th><th>Actions</th></tr></thead>
                 <tbody>
-                @foreach ($hr_attendances as $item)
-                    <tr><td>{{ $item->id }}</td><td>{{ optional($item->person)->name ?? $item->person_id }}</td><td>{{ $item->att_datetime }}</td><td>{{ optional($item->method)->name ?? $item->method_id }}</td><td>
-    <a href="{{ route('hr_attendances.show', $item->id) }}" class="btn btn-sm btn-info">View</a>
-    <a href="{{ route('hr_attendances.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
-    <form action="{{ route('hr_attendances.destroy', $item->id) }}" method="POST" style="display:inline;">
+                @foreach ($bloods as $item)
+                    <tr><td>{{ $item->id }}</td><td>{{ $item->name }}</td><td>
+    <a href="{{ route('bloods.show', $item->id) }}" class="btn btn-sm btn-info">View</a>
+    <a href="{{ route('bloods.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
+    <form action="{{ route('bloods.destroy', $item->id) }}" method="POST" style="display:inline;">
         @csrf
         @method('DELETE')
         <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>

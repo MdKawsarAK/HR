@@ -60,10 +60,10 @@
         <!-- Table -->
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
-                <thead class="thead-dark"><tr><th>Id</th><th>Person id</th><th>Att datetime</th><th>Attendance method id</th><th>Actions</th></tr></thead>
+                <thead class="thead-dark"><tr><th>Id</th><th>Employees id</th><th>Att datetime</th><th>Attendance method id</th><th>Actions</th></tr></thead>
                 <tbody>
                 @foreach ($attendances as $item)
-                    <tr><td>{{ $item->id }}</td><td>{{ optional($item->person)->name ?? $item->person_id }}</td><td>{{ $item->att_datetime }}</td><td>{{ optional($item->attendanceMethod)->name ?? $item->attendance_method_id }}</td><td>
+                    <tr><td>{{ $item->id }}</td><td>{{ optional($item->employee)->name ?? $item->employees_id }}</td><td>{{ $item->att_datetime }}</td><td>{{ optional($item->attendanceMethod)->name ?? $item->attendance_method_id }}</td><td>
     <a href="{{ route('attendances.show', $item->id) }}" class="btn btn-sm btn-info">View</a>
     <a href="{{ route('attendances.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
     <form action="{{ route('attendances.destroy', $item->id) }}" method="POST" style="display:inline;">

@@ -15,7 +15,7 @@
     <strong>Id:</strong> {{ $attendance->id }}
 </div>
 <div class="mb-2">
-    <strong>Person id:</strong> {{ $attendance->person->name ?? $attendance->person_id }}
+    <strong>Employees id:</strong> {{ $attendance->employee->name ?? $attendance->employees_id }}
 </div>
 <div class="mb-2">
     <strong>Att datetime:</strong> {{ $attendance->att_datetime }}
