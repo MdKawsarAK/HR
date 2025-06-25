@@ -22,10 +22,10 @@
 </div>
 <div class="mb-2">
     <strong>Category id:</strong> {{ $employee->category->name ?? $employee->category_id }}
-</div>
+<!-- </div>
 <div class="mb-2">
     <strong>Hire date:</strong> {{ $employee->hire_date }}
-</div>
+</div> -->
 <div class="mb-2">
     <strong>Photo:</strong><br>
     @if($employee->photo)
@@ -43,27 +43,27 @@
 <div class="mb-2">
     <strong>Salary:</strong> {{ $employee->salary }}
 </div>
-<div class="mb-2">
+<!-- <div class="mb-2">
     <strong>Created at:</strong> {{ $employee->created_at }}
 </div>
 <div class="mb-2">
     <strong>Updated at:</strong> {{ $employee->updated_at }}
-</div>
+</div> -->
 <div class="mb-2">
     <strong>Phone:</strong> {{ $employee->phone }}
 </div>
 <div class="mb-2">
     <strong>Nid:</strong> {{ $employee->nid }}
 </div>
-<div class="mb-2">
+<!-- <div class="mb-2">
     <strong>Gender:</strong> {{ $employee->gender }}
-</div>
-<div class="mb-2">
+</div> -->
+<!-- <div class="mb-2">
     <strong>Address:</strong> {{ $employee->address }}
 </div>
 <div class="mb-2">
     <strong>Dob:</strong> {{ $employee->dob }}
-</div>
+</div> -->
 <div class="mb-2">
     <strong>Blood id:</strong> {{ $employee->blood->name ?? $employee->blood_id }}
 </div>

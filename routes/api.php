@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Inventory\ProductController;
 use App\Http\Controllers\Api\Inventory\ProductCategoryController;
 use App\Http\Controllers\Api\HR\EmployeeController;
+use App\Http\Controllers\Api\DistrictsController;
 
 
 Route::get('/user', function (Request $request) {
@@ -15,12 +16,15 @@ Route::get('/user', function (Request $request) {
 Route::apiResources([
     'products' => ProductController::class,
 ]);
-
+ Route::apiResources([
+    'products' => ProductController::class,
+]);
 
 Route::apiResources([
     'productcategory'=>ProductCategoryController::class
 ]);
 
-Route::apiResources([
-    'employees'=>employeeController::class
-]);
+// Route::apiResources([
+//     'district'=>DistrictsController::class
+// ]);
+Route::apiResource('district', districtsController::class);
