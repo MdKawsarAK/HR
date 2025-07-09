@@ -123,7 +123,7 @@ class $controller extends Controller
 {
     public function index()
     {
-        \$$modelPlural = $model::latest()->paginate(10);
+        \$$modelPlural = $model::orderBy('id','desc')->paginate(10);
         return view('pages.$modelPlural.index', compact('$modelPlural'));
     }
 

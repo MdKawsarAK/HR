@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LeaveApplication;
+use App\Models\Leave_Application;
 use Illuminate\Http\Request;
 use App\Models\Person;
 use App\Models\Reason;
@@ -10,12 +10,12 @@ use App\Models\Status;
 use App\Models\Category;
 
 
-class LeaveApplicationController extends Controller
+class Leave_ApplicationController extends Controller
 {
     public function index()
     {
-        $leaveApplications = LeaveApplication::latest()->paginate(10);
-        return view('pages.leaveApplications.index', compact('leaveApplications'));
+        $leave_Applications = Leave_Application::latest()->paginate(10);
+        return view('pages.leave__Applications.index', compact('leave_Applications'));
     }
 
     public function create()
@@ -25,9 +25,9 @@ class LeaveApplicationController extends Controller
         $statuses = \App\Models\Status::all();
         $categories = \App\Models\Category::all();
 
-        return view('pages.leaveApplications.create', [
+        return view('pages.leave_Applications.create', [
             'mode' => 'create',
-            'leaveApplication' => new LeaveApplication(),
+            'leave_Application' => new Leave_Application(),
             'people' => $people,
             'reasons' => $reasons,
             'statuses' => $statuses,
@@ -42,25 +42,25 @@ class LeaveApplicationController extends Controller
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('uploads', 'public');
         }
-        LeaveApplication::create($data);
-        return redirect()->route('leaveApplications.index')->with('success', 'Successfully created!');
+        Leave_Application::create($data);
+        return redirect()->route('leave_Applications.index')->with('success', 'Successfully created!');
     }
 
-    public function show(LeaveApplication $leaveApplication)
+    public function show(Leave_Application $leave_Application)
     {
-        return view('pages.leaveApplications.view', compact('leaveApplication'));
+        return view('pages.leave_Applications.view', compact('leave_Application'));
     }
 
-    public function edit(LeaveApplication $leaveApplication)
+    public function edit(Leave_Application $leave_Application)
     {
         $people = \App\Models\Person::all();
         $reasons = \App\Models\Reason::all();
         $statuses = \App\Models\Status::all();
         $categories = \App\Models\Category::all();
 
-        return view('pages.leaveApplications.edit', [
+        return view('pages.leave_Applications.edit', [
             'mode' => 'edit',
-            'leaveApplication' => $leaveApplication,
+            'leave_Application' => $leave_Application,
             'people' => $people,
             'reasons' => $reasons,
             'statuses' => $statuses,
@@ -69,19 +69,19 @@ class LeaveApplicationController extends Controller
         ]);
     }
 
-    public function update(Request $request, LeaveApplication $leaveApplication)
+    public function update(Request $request, Leave_Application $leave_Application)
     {
         $data = $request->all();
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('uploads', 'public');
         }
-        $leaveApplication->update($data);
-        return redirect()->route('leaveApplications.index')->with('success', 'Successfully updated!');
+        $leave_Application->update($data);
+        return redirect()->route('leave_Applications.index')->with('success', 'Successfully updated!');
     }
 
-    public function destroy(LeaveApplication $leaveApplication)
+    public function destroy(Leave_Application $leave_Application)
     {
-        $leaveApplication->delete();
-        return redirect()->route('leaveApplications.index')->with('success', 'Successfully deleted!');
+        $leave_Application->delete();
+        return redirect()->route('leave_Applications.index')->with('success', 'Successfully deleted!');
     }
 }

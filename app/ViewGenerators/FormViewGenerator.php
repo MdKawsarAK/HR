@@ -74,22 +74,22 @@ ACTIONS;
         $view = <<<BLADE
 @extends('layouts.master')
 @section('page')
-<div class="container">
+<div class="container py-4">
     <!-- Page Header -->
-    <div class="card bg-primary mb-3 p-4">
+    <div class="card bg-primary text-white mb-3 shadow-sm">
         <div class="row">
             <div class="col-12 d-flex justify-content-between align-item-center ">
                 <h3 class=" card-title text-white d-flex align-items-center  m-0">$model List</h3>
-                <a href="{{ route('$modelSnakePlural.create') }}" class="btn btn-light btn-sm" title="Create New Product">
+                <a href="{{ route('$modelSnakePlural.create') }}" class="btn btn-light btn-sm shadow-sm" title="Create New Product">
                     <i class="fa fa-plus mr-1"></i> Create New $model
                 </a>
             </div>
         </div>
     </div>
     <!-- Filter Section -->
-    <div class="card mb-3 p-4">
-        <div class="row">
-            <div class="col-12">
+    <div class="card mb-3 p-4 shadow-sm">
+        <div class="card-body">
+            <div class="row g-3">
                 <div class="form-row">
                     <!-- Search Input with Icon -->
                     <div class="col-md-5">
@@ -130,10 +130,10 @@ ACTIONS;
     <!-- end filter section -->
 
     <!-- Table section -->
-    <div class="card mb-3 p-4">
+    <div class="card shadow-sm">
         <!-- Table -->
         <div class="table-responsive">
-            <table class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered text center">
                 <thead class="thead-dark"><tr>$thead</tr></thead>
                 <tbody>
                 @foreach (\$$modelSnakePlural as \$item)

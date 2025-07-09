@@ -5,9 +5,9 @@
     <div class="card bg-primary text-white mb-3 shadow-sm">
         <div class="row">
             <div class="col-12 d-flex justify-content-between align-item-center ">
-                <h3 class=" card-title text-white d-flex align-items-center  m-0">LeaveApplication List</h3>
-                <a href="{{ route('leave_applications.create') }}" class="btn btn-light btn-sm shadow-sm" title="Create New Product">
-                    <i class="fa fa-plus mr-1"></i> Create New LeaveApplication
+                <h3 class=" card-title text-white d-flex align-items-center  m-0">PayrollInvoice List</h3>
+                <a href="{{ route('payroll_invoices.create') }}" class="btn btn-light btn-sm shadow-sm" title="Create New Product">
+                    <i class="fa fa-plus mr-1"></i> Create New PayrollInvoice
                 </a>
             </div>
         </div>
@@ -60,13 +60,13 @@
         <!-- Table -->
         <div class="table-responsive">
             <table class="table table-striped table-bordered text center">
-                <thead class="thead-dark"><tr><th>Id</th><th>Created at</th><th>Person id</th><th>Reason id</th><th>Remark</th><th>From date</th><th>To date</th><th>Status id</th><th>Category id</th><th>Days</th><th>Actions</th></tr></thead>
+                <thead class="thead-dark"><tr><th>Id</th><th>Employee id</th><th>Created at</th><th>Billed at</th><th>Invoice total</th><th>Actions</th></tr></thead>
                 <tbody>
-                @foreach ($leave_applications as $item)
-                    <tr><td>{{ $item->id }}</td><td>{{ $item->created_at }}</td><td>{{ optional($item->person)->name ?? $item->person_id }}</td><td>{{ optional($item->reason)->name ?? $item->reason_id }}</td><td>{{ $item->remark }}</td><td>{{ $item->from_date }}</td><td>{{ $item->to_date }}</td><td>{{ optional($item->status)->name ?? $item->status_id }}</td><td>{{ optional($item->category)->name ?? $item->category_id }}</td><td>{{ $item->days }}</td><td>
-    <a href="{{ route('leave_applications.show', $item->id) }}" class="btn btn-sm btn-info">View</a>
-    <a href="{{ route('leave_applications.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
-    <form action="{{ route('leave_applications.destroy', $item->id) }}" method="POST" style="display:inline;">
+                @foreach ($payroll_invoices as $item)
+                    <tr><td>{{ $item->id }}</td><td>{{ optional($item->employee)->name ?? $item->employee_id }}</td><td>{{ $item->created_at }}</td><td>{{ $item->billed_at }}</td><td>{{ $item->invoice_total }}</td><td>
+    <a href="{{ route('payroll_invoices.show', $item->id) }}" class="btn btn-sm btn-info">View</a>
+    <a href="{{ route('payroll_invoices.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
+    <form action="{{ route('payroll_invoices.destroy', $item->id) }}" method="POST" style="display:inline;">
         @csrf
         @method('DELETE')
         <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>

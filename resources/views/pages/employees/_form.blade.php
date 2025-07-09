@@ -41,15 +41,15 @@
 </div>
 <div class="mb-2">
     <label>Salary</label>
-    <input type="text" name="salary" value="{{ old('salary', $employee->salary ?? '') }}" class="form-control">
+    <input type="number" name="salary" value="{{ old('salary', $employee->salary ?? '') }}" class="form-control">
 </div>
 <div class="mb-2">
     <label>Phone</label>
-    <input type="text" name="phone" value="{{ old('phone', $employee->phone ?? '') }}" class="form-control">
+    <input type="number" name="phone" value="{{ old('phone', $employee->phone ?? '') }}" class="form-control">
 </div>
 <div class="mb-2">
     <label>Nid</label>
-    <input type="text" name="nid" value="{{ old('nid', $employee->nid ?? '') }}" class="form-control">
+    <input type="number" name="nid" value="{{ old('nid', $employee->nid ?? '') }}" class="form-control">
 </div>
 <div class="mb-2">
     <label>Gender</label>
@@ -61,7 +61,7 @@
 </div>
 <div class="mb-2">
     <label>Dob</label>
-    <input type="text" name="dob" value="{{ old('dob', $employee->dob ?? '') }}" class="form-control">
+    <input type="date" name="dob" value="{{ old('dob', $employee->dob ?? '') }}" class="form-control">
 </div>
 <div class="mb-2">
     <label>Blood id</label>
