@@ -32,7 +32,6 @@ Route::resource('products', ProductController::class);
 Route::resource('districts', App\Http\Controllers\DistrictController::class);
 Route::resource('districts', App\Http\Controllers\DistrictController::class);
 Route::resource('employees', App\Http\Controllers\EmployeeController::class);
-Route::resource('leave_applications', App\Http\Controllers\LeaveApplicationController::class);
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
 Route::resource('bloods', App\Http\Controllers\BloodController::class);
 Route::resource('attendances', App\Http\Controllers\AttendanceController::class);
