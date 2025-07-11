@@ -4,9 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Payrollitem extends Model
+class PayrollItem extends Model
 {
-    
-    public $timestamps = false;
     protected $fillable = ['name', 'type_id'];
 }

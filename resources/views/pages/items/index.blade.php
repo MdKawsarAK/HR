@@ -5,9 +5,9 @@
     <div class="card bg-primary text-white mb-3 shadow-sm">
         <div class="row">
             <div class="col-12 d-flex justify-content-between align-item-center ">
-                <h3 class=" card-title text-white d-flex align-items-center  m-0">PayrollInvoice List</h3>
-                <a href="{{ route('payroll_invoices.create') }}" class="btn btn-light btn-sm shadow-sm" title="Create New Product">
-                    <i class="fa fa-plus mr-1"></i> Create New PayrollInvoice
+                <h3 class=" card-title text-white d-flex align-items-center  m-0">Item List</h3>
+                <a href="{{ route('items.create') }}" class="btn btn-light btn-sm shadow-sm" title="Create New Product">
+                    <i class="fa fa-plus mr-1"></i> Create New Item
                 </a>
             </div>
         </div>
@@ -60,13 +60,13 @@
         <!-- Table -->
         <div class="table-responsive">
             <table class="table table-striped table-bordered text center">
-                <thead class="thead-dark"><tr><th>Id</th><th>Employee id</th><th>Created at</th><th>Billed at</th><th>Invoice total</th><th>Actions</th></tr></thead>
+                <thead class="thead-dark"><tr><th>Id</th><th>Name</th><th>Item type id</th><th>Actions</th></tr></thead>
                 <tbody>
-                @foreach ($payroll_invoices as $item)
-                    <tr><td>{{ $item->id }}</td><td>{{ optional($item->employee)->name ?? $item->employee_id }}</td><td>{{ $item->created_at }}</td><td>{{ $item->billed_at }}</td><td>{{ $item->invoice_total }}</td><td>
-    <a href="{{ route('payroll_invoices.show', $item->id) }}" class="btn btn-sm btn-info">View</a>
-    <a href="{{ route('payroll_invoices.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
-    <form action="{{ route('payroll_invoices.destroy', $item->id) }}" method="POST" style="display:inline;">
+                @foreach ($items as $item)
+                    <tr><td>{{ $item->id }}</td><td>{{ $item->name }}</td><td>{{ optional($item->itemType)->name ?? $item->item_type_id }}</td><td>
+    <a href="{{ route('items.show', $item->id) }}" class="btn btn-sm btn-info">View</a>
+    <a href="{{ route('items.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
+    <form action="{{ route('items.destroy', $item->id) }}" method="POST" style="display:inline;">
         @csrf
         @method('DELETE')
         <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>

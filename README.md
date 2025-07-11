@@ -1,4 +1,6 @@
 
+php artisan make:controller ProvidentFundController --model=ProvidentFund --resource
+php artisan make:controller PayrollController --model=PayrollBill --resource
 
 ## License
 
@@ -145,3 +147,4 @@ php artisan make:command GenerateCrud --command=make:crud
 php artisan generate:crud employees
 php artisan generate:crud employees --force# HR
 php artisan generate:crud districts  
+php artisan generate:crud PayrollItem

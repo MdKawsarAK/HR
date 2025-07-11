@@ -1,91 +1,157 @@
 @extends('layouts.master')
 
 @section('page')
-<div class="container">
-    <h2 class="mb-4">Edit Payroll Invoice #{{ $invoice->id }}</h2>
+<div class="container-box bg-white p-4 rounded shadow-sm mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <img src="https://via.placeholder.com/120x50?text=LOGO" alt="Logo" class="logo">
+            <h4 class="mt-2">HR Management System</h4>
+        </div>
+        <div class="text-end">
+            <p>123 Corporate Blvd, Office 10</p>
+            <p>Email: hr@company.com</p>
+            <p>Phone: +123-456-7890</p>
+        </div>
+    </div>
 
-    <form action="{{ route('payroll.invoices.update', $invoice->id) }}" method="POST">
+    <h3 class="text-center fw-bold mb-4">Edit Payroll Bill</h3>
+
+    <form action="{{ route('payroll.bills.update', $Bill->id) }}" method="POST" id="BillForm">
         @csrf
         @method('PUT')
 
-        <div class="mb-3">
-            <label for="employee_id" class="form-label">Employee</label>
-            <select name="employee_id" id="employee_id" class="form-select" required>
-                @foreach ($employees as $employee)
-                    <option value="{{ $employee->id }}" {{ $employee->id == $invoice->employee_id ? 'selected' : '' }}>
-                        {{ $employee->name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="billed_at" class="form-label">Billed Date</label>
-            <input type="datetime-local" name="billed_at" class="form-control"
-                value="{{ \Carbon\Carbon::parse($invoice->billed_at)->format('Y-m-d\TH:i') }}" required>
-        </div>
-
-        <hr>
-        <h5>Payroll Items</h5>
-
-        <div id="payroll-items">
-            @foreach ($invoice->details as $index => $detail)
-            <div class="row mb-2 payroll-item">
-                <div class="col-md-6">
-                    <select name="items[{{ $index }}][id]" class="form-select" required>
-                        @foreach ($items as $item)
-                            <option value="{{ $item->id }}" {{ $item->id == $detail->item_id ? 'selected' : '' }}>
-                                {{ $item->name }} ({{ $item->type->name }})
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <input type="number" name="items[{{ $index }}][amount]" class="form-control"
-                        value="{{ $detail->amount }}" required>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-danger remove-item">X</button>
-                </div>
+        <!-- Bill Info -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <select name="employee_id" id="employee_id" class="form-select" required>
+                    <option value="">-- Select Employee --</option>
+                    @foreach ($employees as $employee)
+                        <option value="{{ $employee->id }}" {{ $employee->id == $Bill->employee_id ? 'selected' : '' }}>
+                            {{ $employee->first_name }} {{ $employee->last_name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
-            @endforeach
+            <div class="col-md-4">
+                <input type="date" class="form-control" name="created_at" value="{{ $Bill->created_at->format('Y-m-d') }}" required>
+            </div>
+            <div class="col-md-4">
+                <input type="date" class="form-control" name="billed_at" value="{{ $Bill->billed_at->format('Y-m-d') }}" required>
+            </div>
+            <div class="col-md-4">
+                <input type="number" class="form-control" name="bill_total" id="bill_total" value="{{ $Bill->bill_total }}" required readonly>
+            </div>
+            <div class="col-md-4">
+                <select name="status" class="form-select">
+                    @foreach(['Pending', 'Paid', 'Overdue'] as $status)
+                        <option value="{{ $status }}" {{ $Bill->status === $status ? 'selected' : '' }}>{{ $status }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="remarks" value="{{ $Bill->remarks }}" placeholder="Remarks">
+            </div>
         </div>
 
-        <button type="button" class="btn btn-secondary mb-3" id="add-item">+ Add Item</button>
-
-        <div class="mb-3">
-            <label for="invoice_total" class="form-label">Total</label>
-            <input type="number" name="invoice_total" id="invoice_total" class="form-control"
-                value="{{ $invoice->invoice_total }}" required>
+        <!-- Item Inputs -->
+        <h5 class="mb-3">Edit Bill Items</h5>
+        <div class="row g-2 mb-3">
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="bill_id" placeholder="Bill ID">
+            </div>
+            <div class="col-md-3">
+                <select id="item_id" class="form-select">
+                    <option value="">-- Select Item --</option>
+                    @foreach($items as $item)
+                        <option value="{{ $item->id }}">{{ $item->name ?? ('Item #' . $item->id) }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="number" class="form-control" id="amount" placeholder="Amount">
+            </div>
+            <div class="col-md-3 d-flex align-items-start">
+                <button type="button" class="btn btn-primary btn-sm" onclick="addItem()">Add Item</button>
+            </div>
         </div>
 
-        <button class="btn btn-primary" type="submit">Update Invoice</button>
+        <!-- Item Table -->
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Item ID</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="itemsTable"></tbody>
+        </table>
+
+        <input type="hidden" name="items" id="items_json">
+
+        <!-- Submit -->
+        <div class="text-end mt-4">
+            <button type="submit" class="btn btn-success">Update Bill</button>
+            <a href="{{ route('payroll.bills.index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
     </form>
 </div>
 
 <script>
-let itemIndex = {{ $invoice->details->count() }};
+    let items = @json($Bill->items->map(fn($i) => [
+        'bill_id' => $i->bill_id,
+        'item_id' => $i->item_id,
+        'amount' => $i->amount
+    ]));
 
-document.getElementById('add-item').addEventListener('click', function () {
-    const container = document.getElementById('payroll-items');
-    const clone = container.firstElementChild.cloneNode(true);
+    function addItem() {
+        const bill_id = document.getElementById("bill_id").value;
+        const item_id = document.getElementById("item_id").value;
+        const amount = parseFloat(document.getElementById("amount").value);
 
-    clone.querySelectorAll('input, select').forEach(input => {
-        input.name = input.name.replace(/\[\d+\]/, `[${itemIndex}]`);
-        input.value = '';
-    });
-
-    container.appendChild(clone);
-    itemIndex++;
-});
-
-document.addEventListener('click', function (e) {
-    if (e.target.classList.contains('remove-item')) {
-        const row = e.target.closest('.payroll-item');
-        if (document.querySelectorAll('.payroll-item').length > 1) {
-            row.remove();
+        if (!bill_id || !item_id || amount <= 0) {
+            alert("Please enter valid item details.");
+            return;
         }
+
+        items.push({ bill_id, item_id, amount });
+        renderItems();
+        clearInputs();
     }
-});
+
+    function removeItem(index) {
+        items.splice(index, 1);
+        renderItems();
+    }
+
+    function renderItems() {
+        const tbody = document.getElementById("itemsTable");
+        const totalField = document.getElementById("bill_total");
+        tbody.innerHTML = "";
+        let total = 0;
+
+        items.forEach((item, index) => {
+            total += parseFloat(item.amount);
+            tbody.innerHTML += `
+                <tr>
+                    <td>${item.bill_id}</td>
+                    <td>${item.item_id}</td>
+                    <td>${item.amount.toFixed(2)}</td>
+                    <td><button type="button" class="btn btn-sm btn-danger" onclick="removeItem(${index})">Remove</button></td>
+                </tr>`;
+        });
+
+        totalField.value = total.toFixed(2);
+        document.getElementById('items_json').value = JSON.stringify(items);
+    }
+
+    function clearInputs() {
+        document.getElementById("bill_id").value = "";
+        document.getElementById("item_id").value = "";
+        document.getElementById("amount").value = "";
+    }
+
+    document.addEventListener('DOMContentLoaded', renderItems);
 </script>
 @endsection

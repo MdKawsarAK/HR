@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\payroll\PayrollItem;
+use App\Models\PayrollItem;
 use Illuminate\Http\Request;
 use App\Models\Type;
 
 
-class PayrollitemController extends Controller
+class PayrollItemController extends Controller
 {
     public function index()
     {
-        $payrollitems = Payrollitem::orderBy('id','desc')->paginate(10);
-        return view('pages.payrollitems.index', compact('payrollitems'));
+        $payrollItems = PayrollItem::orderBy('id','desc')->paginate(10);
+        return view('pages.payrollItems.index', compact('payrollItems'));
     }
 
     public function create()
     {
         $types = \App\Models\Type::all();
 
-        return view('pages.payrollitems.create', [
+        return view('pages.payrollItems.create', [
             'mode' => 'create',
-            'payrollitem' => new Payrollitem(),
+            'payrollItem' => new PayrollItem(),
             'types' => $types,
 
         ]);
@@ -33,40 +33,40 @@ class PayrollitemController extends Controller
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('uploads', 'public');
         }
-        Payrollitem::create($data);
-        return redirect()->route('pages.payrollitems.index')->with('success', 'Successfully created!');
+        PayrollItem::create($data);
+        return redirect()->route('payrollItems.index')->with('success', 'Successfully created!');
     }
 
-    public function show(Payrollitem $payrollitem)
+    public function show(PayrollItem $payrollItem)
     {
-        return view('pages.payrollitems.view', compact('payrollitem'));
+        return view('pages.payrollItems.view', compact('payrollItem'));
     }
 
-    public function edit(Payrollitem $payrollitem)
+    public function edit(PayrollItem $payrollItem)
     {
         $types = \App\Models\Type::all();
 
-        return view('pages.payrollitems.edit', [
+        return view('pages.payrollItems.edit', [
             'mode' => 'edit',
-            'payrollitem' => $payrollitem,
+            'payrollItem' => $payrollItem,
             'types' => $types,
 
         ]);
     }
 
-    public function update(Request $request, Payrollitem $payrollitem)
+    public function update(Request $request, PayrollItem $payrollItem)
     {
         $data = $request->all();
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('uploads', 'public');
         }
-        $payrollitem->update($data);
-        return redirect()->route('pages.payrollitems.index')->with('success', 'Successfully updated!');
+        $payrollItem->update($data);
+        return redirect()->route('payrollItems.index')->with('success', 'Successfully updated!');
     }
 
-    public function destroy(Payrollitem $payrollitem)
+    public function destroy(PayrollItem $payrollItem)
     {
-        $payrollitem->delete();
-        return redirect()->route('pages.payrollitems.index')->with('success', 'Successfully deleted!');
+        $payrollItem->delete();
+        return redirect()->route('payrollItems.index')->with('success', 'Successfully deleted!');
     }
 }

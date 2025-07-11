@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\HR\payroll;
+namespace App\Models\payroll;
 
 use Illuminate\Database\Eloquent\Model;
 

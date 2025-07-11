@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\Inventory\ProductController;
 use App\Http\Controllers\Api\Inventory\ProductCategoryController;
 use App\Http\Controllers\Api\HR\EmployeeController;
 use App\Http\Controllers\Api\DistrictsController;
-use App\Http\Controllers\Api\PayrollInvoiceController;
+use App\Http\Controllers\Api\HR\PayrollInvoiceController;
 
 
 Route::get('/user', function (Request $request) {

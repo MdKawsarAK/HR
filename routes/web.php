@@ -4,8 +4,8 @@ use App\Http\Controllers\About\AboutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Account\UserController;
 use App\Http\Controllers\Inventory\ProductController;
-use App\Http\Controllers\PayrollInvoiceController;
 // use App\Http\Controllers\PayrollInvoiceController;
+use App\Http\Controllers\PayrollBillController;
 
 
 Route::get('/', function () {
@@ -59,8 +59,20 @@ Route::resource('jobs', App\Http\Controllers\JobController::class);
     Route::put('/invoices/{id}', [PayrollInvoiceController::class, 'update'])->name('payroll.invoices.update');
     Route::delete('/invoices/{id}', [PayrollInvoiceController::class, 'destroy'])->name('payroll.invoices.destroy');
 
-Route::resource('payrollitems', App\Http\Controllers\PayrollitemController::class);
-Route::resource('payrollitemtypes', App\Http\Controllers\PayrollitemtypeController::class);
-Route::resource('types', App\Http\Controllers\TypeController::class);
+// Route::resource('payrollitems', App\Http\Controllers\PayrollitemController::class);
+// Route::resource('payrollitemtypes', App\Http\Controllers\PayrollitemtypeController::class);
+// Route::resource('types', App\Http\Controllers\TypeController::class);
 
-Route::get('/payroll/invoices', [PayrollInvoiceController::class, 'index'])->name('payroll.invoices.index');
+// Route::get('/payroll/invoices', [PayrollInvoiceController::class, 'index'])->name('payroll.invoices.index');
+// Route::get('/payroll/bills', [PayrollBillController::class, 'index'])->name('payroll.bills.index');
+// Route::get('/bills/create', [PayrollBillController::class, 'create'])->name('payroll.bills.create');
+// Route::resource('/bills', App\Http\Controllers\PayrollBillController::class);
+Route::resource('/bills', PayrollBillController::class);
+// Route::get('/payrollbills', [PayrollBillController::class, 'index'])->name('payroll.bills.index');
+
+
+
+
+Route::resource('item_types', App\Http\Controllers\ItemTypeController::class);
+Route::resource('items', App\Http\Controllers\ItemController::class);
+Route::resource('payroll_items', App\Http\Controllers\PayrollItemController::class);
